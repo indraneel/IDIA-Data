@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+	<div class="container">
+	    <h1 class="header">
+		<a href="/">IDIA Conference Registration Info</a>
+	    </h1>
+	    <div class="results">
+		<table class="table">
+		    <thead>
+			<th>
+			    <select id="schoolnames"><option value="All Schools">All Schools</option>
+			    {% for s in schools %}
+			    <option value="{{ s }}">{{s}}</option>
+			    {% endfor %}
+			    </select>
+			</th>
+			<th>Advisor</th>
+			<th>Email</th>
+			<th>Conference</th>
+			<th>Number of Students</th>
+		    </thead>
+		    <tbody>
+			{% for item in data %}
+			<tr> 
+			    <td><a href="/school?school={{ item.School }}">{{ item.School }}</a></td>
+			    <td>{{ item.Advisor }}</td>
+			    <td>{{ item.Email }}</td>
+			    <td>{{ item.Conference }}</td>
+			    <td>{{ item.NumberOfStudents }}</td>
+			</tr>
+			{% endfor %}
+		    </tbody>
+		</table>
+	    </div>
+	</div>
+	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+	<script>
+	    var matchConference = function(item) {
+		return item['Conference'] === val;
+	    }
+	    $(document).ready(function(){
+		var displayObj = {};
+		$('#schoolnames').on('change', function(e) {
+		    var val = $('#schoolnames option:selected').text();
+		    if (val === "All Schools") {
+			window.location = "/";
+		    }
+		    var data_url= "/entries?school="+val;
+		    var school_url= "/school?school="+val;
+		    console.log("new value = " + val);
+		    $.ajax({
+			url: data_url,
+			dataType: "json"
+		    })
+		    .done(function( msg) {
+			displayObj = msg;
+			var stateObj = { 'School': msg[0]['School'] };
+			history.pushState( stateObj, msg[0]['School'], school_url );
+			$('tbody').html("");
+			var outstring = "";
+			msg.forEach(function(c, i, a) {
+			    outstring += "<tr>";
+			    outstring += "<td>";
+			    outstring += c['School']
+			    outstring += "</td>";
+			    outstring += "<td>";
+			    outstring += c['Advisor']
+			    outstring += "</td>";
+			    outstring += "<td>";
+			    outstring += c['Email']
+			    outstring += "</td>";
+			    outstring += "<td>";
+			    outstring += c['Conference']
+			    outstring += "</td>";
+			    outstring += "<td>";
+			    outstring += c['NumberOfStudents']
+			    outstring += "</td>";
+			    outstring += "</tr>";
+			});
+			$('tbody').html(outstring);
+		    });
+		});
+	    });
+	</script>
+    </body>
+</html>

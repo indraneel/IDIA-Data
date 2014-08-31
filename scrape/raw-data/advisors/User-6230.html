@@ -1,0 +1,749 @@
+
+<html>
+	<head>
+		<title>User - Gilman</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+		<link href="/Common/AdminUIStyle.css" rel="stylesheet" type="text/css" />
+		<link href="/includes/screen.css" rel="stylesheet" type="text/css" />
+		<script src="/JS/AdminGeneralJavascript.js" type="text/javascript"></script>
+		<script src="/JS/IDIAJavascript.js" type="text/javascript"></script>
+		<script src="/Common/DateTimePicker/ss_datepicker_settings.js" type="text/javascript"></script>
+		<script src="/Common/DateTimePicker/ss_datepicker.js" type="text/javascript"></script>
+		<script src="/Common/tiny_mce/tiny_mce.js" type="text/javascript"></script>
+		<script type="text/javascript">
+		<!--
+			function TinyMCEInit(valueElements, valueStyle) {
+				if (valueStyle == null || valueStyle == 1) {
+					tinyMCE.init ({
+						theme : "advanced",
+						mode : "exact",
+						elements : valueElements,
+						plugins : "inlinepopups,table",
+						theme_advanced_buttons1 : "bold,italic,underline,strikethrough,separator,bullist,numlist,outdent,indent,separator,forecolor,backcolor,separator,sub,sup,separator,hr,charmap,separator,visualaid,separator,link,unlink,separator,removeformat",
+						theme_advanced_buttons2 : "",
+						theme_advanced_buttons3 : "",
+						theme_advanced_toolbar_location : "top",
+						theme_advanced_toolbar_align : "left",
+						convert_fonts_to_spans : true
+					});
+				} else {
+					tinyMCE.init ({
+						theme : "advanced",
+						mode : "exact",
+						elements : valueElements,
+						plugins : "inlinepopups,table",
+						theme_advanced_buttons1 : "bold,italic,underline,strikethrough,separator,bullist,numlist,outdent,indent,forecolor,backcolor",
+						theme_advanced_buttons2 : "sub,sup,separator,hr,charmap,separator,visualaid,separator,link,unlink,separator,removeformat",
+						theme_advanced_buttons3 : "",
+						theme_advanced_toolbar_location : "top",
+						theme_advanced_toolbar_align : "left",
+						convert_fonts_to_spans : true
+					});
+				};
+			};
+		//-->
+		</script>
+		<script type="text/javascript">
+		<!--
+			function CancelEdit() {
+				window.location.href = 'User.aspx?ID=6230&'
+			};	
+					
+			function NewItem() {
+				window.location.href = "User.aspx?";
+			};
+			
+			var flgShowSchool = false;
+			var flgShowAddressInfo = false;
+			var flgShowBillingInfo = false;
+			var flgShowPortrait = false;
+			var flgShowBiography = false;
+			var flgShowGender = false;
+			var flgShowTShirtSize = false;
+			var flgShowPreferredContactMethod = false;
+			var flgShowBestTimeToCall = false;
+			var flgShowGraduationYear = false;
+			var flgShowEmergencyInfo = false;
+			
+			function SystemUserTypeChanged(valueSelection) {
+				switch (valueSelection) {
+				case "2": //Chaperone
+					flgShowSchool = true;
+					flgShowAddressInfo = true;
+					flgShowBillingInfo = true;
+					flgShowPortrait = true;
+					flgShowBiography = true;
+					flgShowGender = true;
+					flgShowTShirtSize = true;
+					flgShowPreferredContactMethod = true;
+					flgShowBestTimeToCall = true;
+					flgShowGraduationYear = false;
+					flgShowEmergencyInfo = true;
+					break;
+				case "4": //Staff Member
+					flgShowSchool = false;
+					flgShowAddressInfo = true;
+					flgShowBillingInfo = false;
+					flgShowPortrait = true;
+					flgShowBiography = true;
+					flgShowGender = true;
+					flgShowTShirtSize = true;
+					flgShowPreferredContactMethod = false;
+					flgShowBestTimeToCall = false;
+					flgShowGraduationYear = false;
+					flgShowEmergencyInfo = true;
+					break;
+				case "5": //Student
+					flgShowSchool = true;
+					flgShowAddressInfo = true;
+					flgShowBillingInfo = false;
+					flgShowPortrait = true;
+					flgShowBiography = false;
+					flgShowGender = true;
+					flgShowTShirtSize = true;
+					flgShowPreferredContactMethod = false;
+					flgShowBestTimeToCall = false;
+					flgShowGraduationYear = true;
+					flgShowEmergencyInfo = true;
+					break;
+				//case "1": //Administrator
+				//case "3": //Conference Manager
+				default:
+					flgShowSchool = false;
+					flgShowAddressInfo = false;
+					flgShowBillingInfo = false;
+					flgShowPortrait = false;
+					flgShowBiography = false;
+					flgShowGender = false;
+					flgShowTShirtSize = false;
+					flgShowPreferredContactMethod = false;
+					flgShowBestTimeToCall = false;
+					flgShowGraduationYear = false;
+					flgShowEmergencyInfo = false;
+					break;
+				};
+				
+				with (window.document) {
+					ChangeElementDisplay(getElementById("Section_School"), flgShowSchool);
+					ChangeElementDisplay(getElementById("Section_AddressInfo"), flgShowAddressInfo);
+					ChangeElementDisplay(getElementById("Section_BillingInfo"), flgShowBillingInfo);
+					ChangeElementDisplay(getElementById("Section_Portrait"), flgShowPortrait);
+					ChangeElementDisplay(getElementById("Section_Biography"), flgShowBiography);
+					ChangeElementDisplay(getElementById("Section_Gender"), flgShowGender);
+					ChangeElementDisplay(getElementById("Section_TShirtSize"), flgShowTShirtSize);
+					ChangeElementDisplay(getElementById("Section_PreferredContactMethod"), flgShowPreferredContactMethod);
+					ChangeElementDisplay(getElementById("Section_BestTimeToCall"), flgShowBestTimeToCall);
+					ChangeElementDisplay(getElementById("Section_GraduationYear"), flgShowGraduationYear);
+					ChangeElementDisplay(getElementById("Section_EmergencyInfo"), flgShowEmergencyInfo);
+				};
+			};
+			
+			function CountryChanged(valueSelection) {
+				if (valueSelection == "US") {
+					ChangeElementDisplay(window.document.getElementById("State"), true);
+					ChangeElementDisplay(window.document.getElementById("Province"), false);
+					ChangeElementDisplay(window.document.getElementById("PhoneNumber_US"), true);
+					ChangeElementDisplay(window.document.getElementById("PhoneNumber"), false);
+					ChangeElementDisplay(window.document.getElementById("EmergencyPhoneNumber_US"), true);
+					ChangeElementDisplay(window.document.getElementById("EmergencyPhoneNumber"), false);
+				} else {
+					ChangeElementDisplay(window.document.getElementById("State"), false);
+					ChangeElementDisplay(window.document.getElementById("Province"), true);
+					ChangeElementDisplay(window.document.getElementById("PhoneNumber_US"), false);
+					ChangeElementDisplay(window.document.getElementById("PhoneNumber"), true);
+					ChangeElementDisplay(window.document.getElementById("EmergencyPhoneNumber_US"), false);
+					ChangeElementDisplay(window.document.getElementById("EmergencyPhoneNumber"), true);
+				};
+			};
+			
+			function BillingCountryChanged(valueSelection) {
+				if (valueSelection == "US") {
+					ChangeElementDisplay(window.document.getElementById("Billing_State"), true);
+					ChangeElementDisplay(window.document.getElementById("Billing_Province"), false);
+					ChangeElementDisplay(window.document.getElementById("Billing_Phone_US"), true);
+					ChangeElementDisplay(window.document.getElementById("Billing_Phone"), false);
+					ChangeElementDisplay(window.document.getElementById("Billing_Fax_US"), true);
+					ChangeElementDisplay(window.document.getElementById("Billing_Fax"), false);
+				} else {
+					ChangeElementDisplay(window.document.getElementById("Billing_State"), false);
+					ChangeElementDisplay(window.document.getElementById("Billing_Province"), true);
+					ChangeElementDisplay(window.document.getElementById("Billing_Phone_US"), false);
+					ChangeElementDisplay(window.document.getElementById("Billing_Phone"), true);
+					ChangeElementDisplay(window.document.getElementById("Billing_Fax_US"), false);
+					ChangeElementDisplay(window.document.getElementById("Billing_Fax"), true);
+				};
+			};
+		//-->
+		</script>
+	</head>
+	<body>
+		<div align="center">
+			<table border="0" width="750" cellspacing="0" cellpadding="0" id="container_table">
+				<tr>
+					<td align="left" valign="top" width="750"><a href="default.aspx"><img src="http://idia.net/images/banner_corporate.gif" /></a></td>
+				</tr>
+				<tr>
+					<td align="left" valign="top" width="750">
+						<table border="0" width="750" cellspacing="0" cellpadding="0" id="Table1">
+							<tr>
+								<td align="left" valign="top" width="587" id="left_table_bkend">
+									<table border="0" cellpadding="0" cellspacing="0" id="Table2">
+										<tr>
+											<td align="left" valign="middle" width="587" colspan="3" id="toplinks_bkend">
+												<a href="/Admin">Home</a>&nbsp;&gt; <a href="http://idia.net/Admin/Users.aspx">Users</a>&nbsp;&gt; Gilman
+											</td>
+										</tr>
+										<tr>
+											<td align="left" valign="top" width="1"></td>
+											<td align="left" valign="top" width="586">
+												<table border="0" width="586" cellspacing="0" cellpadding="0" id="Table3">
+													<tr>
+														<td align="left" valign="top" colspan="3" height="1" bgcolor="#bfe5ff"></td>
+													</tr>
+													<tr>
+														<td align="left" valign="top" colspan="3" width="586"><img border="0" src="/Images/10px.gif" width="1" height="10" /></td>
+													</tr>
+													<tr>
+														<td align="left" valign="top" width="20"><img border="0" src="/Images/10px.gif" height="1" width="20" /></td>
+														<td align="left" valign="top" width="546" id="main_body">
+<!--Body Start-->
+															<table class="Content" width="100%">
+																<tr>
+																	<td class="ListHeader" colspan="1">
+																		User&nbsp;Details
+																	</td>
+																</tr>
+																<tr>
+																	<td class="Error" colspan="1" align="left">
+																		
+																	</td>
+																</tr>
+
+																<tr>
+																	<td colspan="1">
+																		<form action="/Admin/User.aspx" method="post"  id="frmMain" name="frmMain" style="MARGIN: 0px; BORDER: 0px; PADDING: 0px;">
+																			<input type="hidden" value="True" id="Edit" name="Edit" />
+																			<input type="hidden" value="6230" id="ID" name="ID" />
+
+																			<table class="Content" border="0" cellspacing="1" cellpadding="2">
+																				<tbody>
+		
+																					<tr>
+																						<td class="FormHeader">
+																							ID:
+																						</td>
+																						<td class="FormItem">
+																							6230
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							System&nbsp;User&nbsp;Type:
+																						</td>
+																						<td class="FormItem">
+																							Chaperone
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							First&nbsp;Name:
+																						</td>
+																						<td class="FormItem">
+																							Matt
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Last&nbsp;Name:
+																						</td>
+																						<td class="FormItem">
+																							Honohan
+																						</td>
+																					</tr>
+																				</tbody>
+																				<tbody id="Section_School">
+																					<tr>
+																						<td class="FormHeader">
+																							School:
+																						</td>
+																						<td class="FormItem">
+																							<a href="School.aspx?ID=367">The Gilman School</a>
+																						</td>
+																					</tr>
+																				</tbody>
+																				<tbody id="Section_AddressInfo">
+																					<tr>
+																						<td class="FormHeader">
+																							Address&nbsp;Line&nbsp;1:
+																						</td>
+																						<td class="FormItem">
+																							5407 Roland Ave
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Address&nbsp;Line&nbsp;2:
+																						</td>
+																						<td class="FormItem">
+																							
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Country:
+																						</td>
+																						<td class="FormItem">
+																							United States
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							City:
+																						</td>
+																						<td class="FormItem">
+																							Baltimore
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							State/Province:
+																						</td>
+																						<td class="FormItem">
+																							Maryland
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Postal&nbsp;Code:
+																						</td>
+																						<td class="FormItem">
+																							21030
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Phone&nbsp;Number:
+																						</td>
+																						<td class="FormItem">
+																							410-323-3800 x710
+																						</td>
+																					</tr>
+																				</tbody>
+																				<tbody>
+																					<tr>
+																						<td class="FormHeader">
+																							Email:
+																						</td>
+																						<td class="FormItem">
+																							<a href="&#109;&#97;il&#116;&#111;&#58;&#109;&#104;&#111;&#110;&#111;&#104;&#97;&#110;&#64;&#103;&#105;&#108;&#109;&#97;&#110;&#46;&#101;&#100;&#117;" title="Send email">&#109;&#104;&#111;&#110;&#111;&#104;&#97;&#110;&#64;&#103;&#105;&#108;&#109;&#97;&#110;&#46;&#101;&#100;&#117;</a>
+																						</td>
+																					</tr>
+																				</tbody>
+																				<tbody id="Section_BillingInfo">
+																					<tr>
+																						<td class="FormHeader">
+																							Billing&nbsp;Name:
+																						</td>
+																						<td class="FormItem">
+																							Gilman School
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Billing&nbsp;Address&nbsp;Line&nbsp;1:
+																						</td>
+																						<td class="FormItem">
+																							5407 Roland Ave.
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Billing&nbsp;Address&nbsp;Line&nbsp;2:
+																						</td>
+																						<td class="FormItem">
+																							attn:  Matt Honohan
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Billing&nbsp;Address&nbsp;Line&nbsp;3:
+																						</td>
+																						<td class="FormItem">
+																							
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Billing&nbsp;Country:
+																						</td>
+																						<td class="FormItem">
+																							United States
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Billing&nbsp;City:
+																						</td>
+																						<td class="FormItem">
+																							Baltimore
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Billing&nbsp;State/Province:
+																						</td>
+																						<td class="FormItem">
+																							Maryland
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Billing&nbsp;Postal&nbsp;Code:
+																						</td>
+																						<td class="FormItem">
+																							21210
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Billing&nbsp;Email:
+																						</td>
+																						<td class="FormItem">
+																							<a href="&#109;&#97;il&#116;&#111;&#58;&#109;&#104;&#111;&#110;&#111;&#104;&#97;&#110;&#64;&#103;&#105;&#108;&#109;&#97;&#110;&#46;&#101;&#100;&#117;" title="Send email">&#109;&#104;&#111;&#110;&#111;&#104;&#97;&#110;&#64;&#103;&#105;&#108;&#109;&#97;&#110;&#46;&#101;&#100;&#117;</a>
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Billing&nbsp;Phone:
+																						</td>
+																						<td class="FormItem">
+																							410-323-3800
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Billing&nbsp;Fax:
+																						</td>
+																						<td class="FormItem">
+																							410-532-6513
+																						</td>
+																					</tr>
+																				</tbody>
+																				<tbody>
+																					<tr>
+																						<td class="FormHeader">
+																							User&nbsp;Name:
+																						</td>
+																						<td class="FormItem">
+																							Gilman
+																						</td>
+																					</tr>
+																					
+																					<tr>
+																						<td class="FormHeader">
+																							Security&nbsp;Question:
+																						</td>
+																						<td class="FormItem">
+																							What is name of Honohan's dog?
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Security&nbsp;Answer:
+																						</td>
+																						<td class="FormItem">
+																							Chloe
+																						</td>
+																					</tr>
+																				</tbody>
+																				<tbody id="Section_Portrait">
+																					<tr>
+																						<td class="FormHeader">
+																							Portrait&nbsp;Image:
+																						</td>
+																						<td class="FormItem">
+																							None
+																						</td>
+																					</tr>
+																				</tbody>
+																				<tbody id="Section_Biography">
+																					<tr>
+																						<td class="FormHeader">
+																							Biography:
+																						</td>
+																						<td class="FormItem">
+																							
+																						</td>
+																					</tr>
+																				</tbody>
+																				<tbody id="Section_Gender">
+																					<tr>
+																						<td class="FormHeader">
+																							Gender:
+																						</td>
+																						<td class="FormItem">
+																							NA
+																						</td>
+																					</tr>
+																				</tbody>
+																				<tbody id="Section_TShirtSize">
+																					<tr>
+																						<td class="FormHeader">
+																							TShirt&nbsp;Size:
+																						</td>
+																						<td class="FormItem">
+																							XL
+																						</td>
+																					</tr>
+																				</tbody>
+																				<tbody>
+																					<tr>
+																						<td class="FormHeader">
+																							Special&nbsp;Needs:
+																						</td>
+																						<td class="FormItem">
+																							
+																						</td>
+																					</tr>
+																				</tbody>
+																				<tbody id="Section_PreferredContactMethod">
+																					<tr>
+																						<td class="FormHeader">
+																							Preferred&nbsp;Contact&nbsp;Method:
+																						</td>
+																						<td class="FormItem">
+																							Email
+																						</td>
+																					</tr>
+																				</tbody>
+																				<tbody id="Section_BestTimeToCall">
+																					<tr>
+																						<td class="FormHeader">
+																							Best&nbsp;Time&nbsp;To&nbsp;Call:
+																						</td>
+																						<td class="FormItem">
+																							Afternoon
+																						</td>
+																					</tr>
+																				</tbody>
+																				<tbody id="Section_GraduationYear">
+																					<tr>
+																						<td class="FormHeader">
+																							Graduation&nbsp;Year:
+																						</td>
+																						<td class="FormItem">
+																							0
+																						</td>
+																					</tr>
+																				</tbody>
+																				<tbody id="Section_EmergencyInfo">
+																					<tr>
+																						<td class="FormHeader">
+																							Emergency&nbsp;Contact&nbsp;Name:
+																						</td>
+																						<td class="FormItem">
+																							Molly Smith
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Emergency&nbsp;Contact&nbsp;Phone&nbsp;Number:
+																						</td>
+																						<td class="FormItem">
+																							443-275-1609
+																						</td>
+																					</tr>
+																				</tbody>
+																				<tbody>
+																					<!--
+																					<tr>
+																						<td class="FormHeader">
+																							Is&nbsp;Archived:
+																						</td>
+																						<td class="FormItem">
+																							
+																						</td>
+																					</tr>
+																					-->
+																					<tr>
+																						<td class="FormHeader">
+																							Is&nbsp;Activated:
+																						</td>
+																						<td class="FormItem">
+																							Yes
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Last&nbsp;Activity:
+																						</td>
+																						<td class="FormItem">
+																							11/13/2011 01:39:00 AM
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Time&nbsp;Created:
+																						</td>
+																						<td class="FormItem">
+																							09/07/2009 12:18:55 PM
+																						</td>
+																					</tr>
+																					<tr>
+																						<td class="FormHeader">
+																							Time&nbsp;Modified:
+																						</td>
+																						<td class="FormItem">
+																							11/11/2009 08:26:33 PM
+																						</td>
+																					</tr>
+		
+																					<tr align="center">
+																						<td colspan="2" align="center">
+																							<table class="Content">
+																								<tr>
+																									<td>
+																										<input class="Button_Enabled" type="submit" value="Edit" id="btnEdit" name="btnEdit" title="Edit record" style="width:50px;" tabindex="1" onmouseover="javascript: Highlight(this);" onmouseout="javascript: LoseHighlight();">
+																									</td>
+																									<td>
+																									</td>
+																									<td>
+																										<input class="Button_Enabled" type="Button" id="btnTopNew" name="btnTopNew" value="New" title="Add a new record" style="width:50px;" tabindex="2" onmouseover="javascript: Highlight(this);" onmouseout="javascript: LoseHighlight();" onclick="javascript: NewItem();">
+																									</td>
+																								</tr>
+																							</table>
+																						</td>
+																					</tr>
+	
+																				</tbody>
+																			</table>
+																		</form>
+																	</td>
+																</tr>
+															</table>
+<!--Body Stop-->
+														</td>
+														<td align="left" valign="top" width="20"><img border="0" src="/Images/10px.gif" height="1" width="20" /></td>
+													</tr>
+													<tr>
+														<td align="left" valign="top" colspan="3" width="586"><img border="0" src="/Images/10px.gif" width="1" height="20" /></td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+								<td align="left" valign="top" width="2" class="skinny_column"></td>
+								<td align="center" valign="top" width="160">
+<table border="0" align="left" valign="top" width="160" cellspacing="0" cellpadding="0" class="right_column_corporate" style="clear: both;">
+	<tr>
+		<td align="center" valign="middle" width="160" id="login">
+
+			<form name="frmLogIn" id="frmLogIn" action="/LogOut.aspx" method="post">
+				<table border="0" width="154" cellspacing="0" cellpadding="2" id="Table5">
+	
+					<tr>
+	
+						<td><a href="/RegistrationSystem">HOME</a></td>
+			
+					</tr>
+					<tr>
+						<td><strong>User:</strong>&nbsp;ProhitI</td>
+					</tr>
+	
+					<tr>
+						<td><strong>School:</strong>&nbsp;Churchill Junior High School<br /></td>
+					</tr>
+			
+					<tr>
+						<td><a href="" onclick="javascript: window.document.getElementById('frmLogIn').submit(); return false;"><img src="/Images/button_logoff_green.gif" border="0" width="59" height="23" /></a></td>
+					</tr>
+				</table>
+			</form>
+	
+		</td>
+	</tr>
+</table>
+								</td>
+								<td align="left" valign="top" width="1"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top" width="750">
+
+<table border="0" width="750" cellspacing="0" cellpadding="0" id="Table1">
+	<tr>
+		<td width="1" align="left" valign="top"></td>
+		<td align="left" width="15" class="bottomlinks"></td>
+		<td align="left" width="447" class="bottomlinks">
+			<a href="/corporate.aspx?id=37">How to work with IDIA</a> | <a href="/programs.aspx">Programs</a> | <a href="/corporate.aspx?ekfrm=66">Contact Us</a> | <a href="/news.aspx">News</a>
+			<br>
+			<a href="/sitemap.aspx">Sitemap</a> | <a href="/default.aspx">Home</a> |
+			<a href="/policies.aspx">Policies</a><br>
+			<br>
+			Addressing domestic and international affairs and fostering academic<br>growth and personal development for teachers and students.
+		</td>
+		<td align="right" valign="top" width="126">
+			<img border="0" src="/images/logo_idia_bottom.gif" width="126" height="61" /></td>
+		<td align="left" valign="top" width="160">
+			<img border="0" src="/images/logo_globe_corporate.gif" width="45" height="61" /></td>
+		<td align="left" valign="top" width="1" rowspan="3"></td>
+	</tr>
+	<tr>
+		<td width="1" align="left" valign="top"></td>
+		<td align="left" width="15" class="footer"></td>
+		<!--<td align="left" width="447" class="footer">
+			205 W. Main St. Suite 205 | Somerville, New Jersey | 08876 | USA <br> +1 (732) 249-4227<br>
+			Copyright &copy; 2006 Institute for Domestic &amp; International Affairs, Inc.
+		</td>-->
+		<td align="left" width="448" class="footer">
+			PO Box 114 | Georgetown, Massachusetts | 01833 | USA <br> +1 (732) 249-4227<br>
+			Copyright &copy; 2013 Institute for Domestic &amp; International Affairs, Inc.
+		</td>
+		<td align="right" valign="top" width="126" class="footer">
+			<img border="0" src="/images/logo_idia_bottom2.gif" width="27" height="38" /></td>
+		<td align="left" valign="top" width="160">
+			<img border="0" src="/images/logo_globe_corporate2.gif" width="45" height="33" /></td>
+	</tr>
+	<tr>
+		<td width="1" align="left" valign="top"></td>
+		<td align="left" width="748" colspan="4" height="1"></td>
+	</tr>
+</table>
+<script type="text/javascript">
+document.write(unescape("%3Cscript src='" + ((document.location.protocol=="https:")?"https:":"http:") + "//snapabug.appspot.com/snapabug.js' type='text/javascript'%3E%3C/script%3E"));</script><script type="text/javascript">
+SnapABug.addButton('ce4da223-6505-4db1-9491-79e1676b7021',"0","55%", true);
+</script>
+
+					</td>
+				</tr>
+			</table>
+		</div>
+		<br />
+		<script type="text/javascript" defer>
+			with (window.document) {
+				if (getElementById("SystemUserType_ID") != null) {
+					getElementById("SystemUserType_ID").focus();
+				} else if (getElementById("btnEdit") != null) {
+					getElementById("btnEdit").focus();
+				};
+				
+				SystemUserTypeChanged("2");
+				
+				if (getElementById("Country") != null) {
+					CountryChanged(getElementById("Country").value);
+				};
+				
+				if (getElementById("Billing_Country") != null) {
+					BillingCountryChanged(getElementById("Billing_Country").value);
+				};
+			};
+		</script>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
